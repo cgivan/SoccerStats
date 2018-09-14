@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace SoccerStats
 {
@@ -6,7 +7,14 @@ namespace SoccerStats
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string currentDirctory = Directory.GetCurrentDirectory();
+            DirectoryInfo directory = new DirectoryInfo(currentDirctory);
+            var files = directory.GetFiles("*.txt");
+            foreach(var file in files)
+            {
+                Console.WriteLine(file.Name);
+            }
+            Console.ReadLine();
         }
     }
 }
