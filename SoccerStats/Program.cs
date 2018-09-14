@@ -9,12 +9,36 @@ namespace SoccerStats
         {
             string currentDirctory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirctory);
-            var files = directory.GetFiles("*.txt");
-            foreach(var file in files)
+
+            var fileName = Path.Combine(directory.FullName, "SoccerGameResults.csv");
+            var fileContents = ReadFile(fileName);
+            string[] fileLines = fileContents.Split(new char[] { '\r', '\n' },StringSplitOptions.RemoveEmptyEntries);
+            foreach(var line in fileLines)
             {
-                Console.WriteLine(file.Name);
+                Console.WriteLine(line);
             }
-            Console.ReadLine();
+            
+
+            
+
+            //var file = new FileInfo(fileName);
+            //if (file.Exists)
+            //{
+            //    using (var reader = new StreamReader(file.FullName))
+            //    {
+            //        Console.SetIn(reader);
+            //        Console.WriteLine(Console.ReadLine());
+            //        Console.ReadKey();
+            //    }
+            //}
+        }
+
+        public static string ReadFile(string fileName)
+        {
+            using (var reader = new StreamReader(fileName))
+            {
+                return reader.ReadToEnd();
+            }
         }
     }
 }
